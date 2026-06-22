@@ -26,7 +26,7 @@ const US_STATES = [
   ["DC","District of Columbia"],
 ] as const;
 
-const STEP_TITLES = ["Company Details", "Cities & Listing", "Contact Info", "Billing"];
+const STEP_TITLES = ["Company Details", "Contact Info", "Cities & Listing", "Billing"];
 
 const formatPhone = (val: string) => {
   const d = val.replace(/\D/g, "");
@@ -111,8 +111,8 @@ export default function ApplyForm() {
   async function goNext() {
     const stepFields: (keyof ApplyFormData)[][] = [
       ["companyName", "companyPhone", "assetPermission"],
-      ["locations", "loanProducts"],
       ["contactFirstName", "contactLastName", "email", "contactPhone", "plaqueShippingAddress", "plaqueShippingCity", "plaqueShippingState", "plaqueShippingZip"],
+      ["locations", "loanProducts"],
       ["cardNumber", "cardExpiry", "cardCvc", "cardName", "billingAddress", "billingCity", "billingState", "billingZip", "consentToTerms"],
     ];
     const valid = await trigger(stepFields[step - 1]);
@@ -285,8 +285,63 @@ export default function ApplyForm() {
             </div>
           )}
 
-          {/* Step 2 */}
+          {/* Step 2 — Contact Info */}
           {step === 2 && (
+            <div className="space-y-6">
+              <div>
+                <h2 className="font-display text-xl font-bold text-navy mb-1">Contact Information</h2>
+                <p className="text-sm text-muted">Your contact details for this listing.</p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <FormField label="First Name" required error={errors.contactFirstName?.message}>
+                  <Input {...register("contactFirstName")} error={errors.contactFirstName?.message} placeholder="Jane" />
+                </FormField>
+                <FormField label="Last Name" required error={errors.contactLastName?.message}>
+                  <Input {...register("contactLastName")} error={errors.contactLastName?.message} placeholder="Smith" />
+                </FormField>
+              </div>
+              <FormField label="Title / Role" hint="optional" error={errors.contactTitle?.message}>
+                <Input {...register("contactTitle")} error={errors.contactTitle?.message} placeholder="Owner, Branch Manager, Loan Officer…" />
+              </FormField>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <FormField label="Email Address" required error={errors.email?.message}>
+                  <Input {...register("email")} type="email" error={errors.email?.message} placeholder="jane@yourcompany.com" />
+                </FormField>
+                <FormField label="Phone" required error={errors.contactPhone?.message}>
+                  <Input {...register("contactPhone")} onChange={(e) => { e.target.value = formatPhone(e.target.value); register("contactPhone").onChange(e); }} type="tel" error={errors.contactPhone?.message} placeholder="(555) 000-0000" />
+                </FormField>
+              </div>
+              <FormField label="Notes" hint="optional" error={errors.notes?.message}>
+                <Textarea {...register("notes")} error={errors.notes?.message} rows={3} placeholder="Anything else we should know about your listing?" />
+              </FormField>
+              <div className="pt-4 border-t border-sky-dark">
+                <h3 className="text-sm font-semibold text-navy mb-1">Complimentary Plaque Delivery</h3>
+                <p className="text-xs text-muted mb-4">Where should we ship your complimentary custom recognition plaque?</p>
+                <div className="space-y-5">
+                  <FormField label="Street Address" required error={errors.plaqueShippingAddress?.message}>
+                    <Input {...register("plaqueShippingAddress")} error={errors.plaqueShippingAddress?.message} placeholder="123 Main St, Suite 400" autoComplete="street-address" />
+                  </FormField>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                    <FormField label="City" required error={errors.plaqueShippingCity?.message} className="sm:col-span-1">
+                      <Input {...register("plaqueShippingCity")} error={errors.plaqueShippingCity?.message} placeholder="Denver" autoComplete="address-level2" />
+                    </FormField>
+                    <FormField label="State" required error={errors.plaqueShippingState?.message}>
+                      <Select {...register("plaqueShippingState")} error={errors.plaqueShippingState?.message} autoComplete="address-level1">
+                        <option value="">State</option>
+                        {US_STATES.map(([code]) => <option key={code} value={code}>{code}</option>)}
+                      </Select>
+                    </FormField>
+                    <FormField label="ZIP Code" required error={errors.plaqueShippingZip?.message}>
+                      <Input {...register("plaqueShippingZip")} error={errors.plaqueShippingZip?.message} placeholder="80202" maxLength={10} inputMode="numeric" autoComplete="postal-code" />
+                    </FormField>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Step 3 — Cities & Listing */}
+          {step === 3 && (
             <div className="space-y-8">
               <div>
                 <h2 className="font-display text-xl font-bold text-navy mb-1">Cities & Listing Type</h2>
@@ -370,61 +425,6 @@ export default function ApplyForm() {
             </div>
           )}
 
-          {/* Step 3 */}
-          {step === 3 && (
-            <div className="space-y-6">
-              <div>
-                <h2 className="font-display text-xl font-bold text-navy mb-1">Contact Information</h2>
-                <p className="text-sm text-muted">Your contact details for this listing.</p>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <FormField label="First Name" required error={errors.contactFirstName?.message}>
-                  <Input {...register("contactFirstName")} error={errors.contactFirstName?.message} placeholder="Jane" />
-                </FormField>
-                <FormField label="Last Name" required error={errors.contactLastName?.message}>
-                  <Input {...register("contactLastName")} error={errors.contactLastName?.message} placeholder="Smith" />
-                </FormField>
-              </div>
-              <FormField label="Title / Role" hint="optional" error={errors.contactTitle?.message}>
-                <Input {...register("contactTitle")} error={errors.contactTitle?.message} placeholder="Owner, Branch Manager, Loan Officer…" />
-              </FormField>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <FormField label="Email Address" required error={errors.email?.message}>
-                  <Input {...register("email")} type="email" error={errors.email?.message} placeholder="jane@yourcompany.com" />
-                </FormField>
-                <FormField label="Phone" required error={errors.contactPhone?.message}>
-                  <Input {...register("contactPhone")} onChange={(e) => { e.target.value = formatPhone(e.target.value); register("contactPhone").onChange(e); }} type="tel" error={errors.contactPhone?.message} placeholder="(555) 000-0000" />
-                </FormField>
-              </div>
-              <FormField label="Notes" hint="optional" error={errors.notes?.message}>
-                <Textarea {...register("notes")} error={errors.notes?.message} rows={3} placeholder="Anything else we should know about your listing?" />
-              </FormField>
-
-              <div className="pt-4 border-t border-sky-dark">
-                <h3 className="text-sm font-semibold text-navy mb-1">Complimentary Plaque Delivery</h3>
-                <p className="text-xs text-muted mb-4">Where should we ship your complimentary custom recognition plaque?</p>
-                <div className="space-y-5">
-                  <FormField label="Street Address" required error={errors.plaqueShippingAddress?.message}>
-                    <Input {...register("plaqueShippingAddress")} error={errors.plaqueShippingAddress?.message} placeholder="123 Main St, Suite 400" autoComplete="street-address" />
-                  </FormField>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-                    <FormField label="City" required error={errors.plaqueShippingCity?.message} className="sm:col-span-1">
-                      <Input {...register("plaqueShippingCity")} error={errors.plaqueShippingCity?.message} placeholder="Denver" autoComplete="address-level2" />
-                    </FormField>
-                    <FormField label="State" required error={errors.plaqueShippingState?.message}>
-                      <Select {...register("plaqueShippingState")} error={errors.plaqueShippingState?.message} autoComplete="address-level1">
-                        <option value="">State</option>
-                        {US_STATES.map(([code]) => <option key={code} value={code}>{code}</option>)}
-                      </Select>
-                    </FormField>
-                    <FormField label="ZIP Code" required error={errors.plaqueShippingZip?.message}>
-                      <Input {...register("plaqueShippingZip")} error={errors.plaqueShippingZip?.message} placeholder="80202" maxLength={10} inputMode="numeric" autoComplete="postal-code" />
-                    </FormField>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
 
           {/* Step 4 */}
           {step === 4 && (

@@ -93,15 +93,15 @@ export default function HowItWorksPage() {
               <h2 className="font-display text-2xl font-bold text-navy mb-8 text-center">Pricing</h2>
 
               <div className="space-y-6 mb-6">
-                {/* Standard Listing */}
+                {/* Standard Listing — per city */}
                 <div className="bg-white rounded-xl border border-sky-dark p-6">
                   <div className="flex items-start justify-between gap-4 mb-4">
                     <div>
-                      <p className="font-display text-lg font-bold text-navy">Standard Listing — first city</p>
+                      <p className="font-display text-lg font-bold text-navy">Listing — per city</p>
                     </div>
                     <div className="text-right flex-shrink-0">
-                      <p className="text-sm text-muted line-through">$578</p>
-                      <p className="font-display text-2xl font-bold text-navy">$289</p>
+                      <p className="text-sm text-muted line-through">$578 / city</p>
+                      <p className="font-display text-2xl font-bold text-navy">$289 / city</p>
                     </div>
                   </div>
                   <ul className="space-y-1.5">
@@ -110,30 +110,8 @@ export default function HowItWorksPage() {
                       "Custom recognition plaque",
                       "Invitation to the Awards & Recognition Event",
                       "Eligibility for the Top Mortgage Companies Recognition Award",
-                    ].map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm text-muted">
-                        <span className="text-teal font-bold mt-0.5">✓</span>
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Additional cities */}
-                <div className="bg-white rounded-xl border border-sky-dark p-6">
-                  <div className="flex items-start justify-between gap-4 mb-4">
-                    <div>
-                      <p className="font-display text-lg font-bold text-navy">Additional cities</p>
-                    </div>
-                    <div className="text-right flex-shrink-0">
-                      <p className="text-sm text-muted line-through">$578 each</p>
-                      <p className="font-display text-2xl font-bold text-navy">$289 each</p>
-                    </div>
-                  </div>
-                  <ul className="space-y-1.5">
-                    {[
-                      "Full listing in every additional city",
-                      "Expands your reach to all borrowers you serve",
+                      "Full listing in every city you serve",
+                      "Expands your reach to all borrowers in your market",
                     ].map((f) => (
                       <li key={f} className="flex items-start gap-2 text-sm text-muted">
                         <span className="text-teal font-bold mt-0.5">✓</span>

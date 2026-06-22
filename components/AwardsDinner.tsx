@@ -16,15 +16,15 @@ export default function AwardsDinner() {
             <div className="flex justify-center lg:justify-start">
               <div className="relative">
                 <div className="absolute -inset-6 bg-teal/10 rounded-3xl blur-2xl" />
-                <div className="relative w-72 sm:w-80">
+                <div className="relative w-full max-w-lg">
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10 inline-flex items-center gap-2 justify-center px-4 py-1.5 bg-teal text-white font-bold text-[10px] tracking-widest uppercase rounded-full shadow-md whitespace-nowrap">
                     Limited Time: Apply Today
                   </div>
                   <Image
                     src="/top-awards-mortage.png.png"
                     alt="Top Mortgage Companies 2027 Recognition Award Plaque"
-                    width={400}
-                    height={480}
+                    width={600}
+                    height={720}
                     className="rounded-2xl shadow-2xl w-full h-auto"
                   />
                 </div>
