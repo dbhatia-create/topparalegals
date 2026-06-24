@@ -6,7 +6,7 @@ import FadeIn from "@/components/FadeIn";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: "Get in touch with the TopMortgageCompanies.com team. We're here to answer your questions about listings and Featured Listings.",
+  description: "Get in touch with the TopParalegals.com team. We're here to answer your questions about listings and Featured Listings.",
 };
 
 export default function ContactPage() {
@@ -39,7 +39,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-navy text-sm">Phone</p>
-                      <a href="tel:+18665206592" className="text-teal text-sm font-medium hover:underline">(866) 520-6592</a>
+                      <a href="tel:+18660000000" className="text-teal text-sm font-medium hover:underline">(866) 000-0000</a>
                       <p className="text-xs text-muted mt-0.5">Mon – Fri, 9am – 6pm ET</p>
                     </div>
                   </div>
@@ -49,8 +49,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="font-semibold text-navy text-sm">Email</p>
-                      <a href="mailto:info@topmortgagecompanies.com" className="text-teal text-sm font-medium hover:underline">
-                        info@topmortgagecompanies.com
+                      <a href="mailto:info@topparalegals.com" className="text-teal text-sm font-medium hover:underline">
+                        info@topparalegals.com
                       </a>
                     </div>
                   </div>

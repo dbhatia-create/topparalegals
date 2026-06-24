@@ -6,22 +6,22 @@ const props = [
   {
     icon: Building2,
     heading: "Increase Visibility.",
-    body: "Get your mortgage company in front of homebuyers, homeowners, and investors actively searching for financing solutions in your city.",
+    body: "Get your paralegal services in front of law firms, attorneys, businesses, and individuals actively searching for qualified legal support in your city.",
   },
   {
     icon: Globe,
     heading: "Build Credibility.",
-    body: "A professional profile helps borrowers learn about your experience, loan programs, and service before deciding who to trust with one of the largest financial decisions of their lives.",
+    body: "A professional profile helps prospective clients learn about your experience, legal support capabilities, and areas of focus before deciding who to contact.",
   },
   {
     icon: TrendingUp,
     heading: "Differentiate.",
-    body: "Showcase your specialties — conventional, FHA, VA, jumbo, refinancing, and more — and communicate what sets your company apart from the competition.",
+    body: "Showcase your specialties — litigation support, document preparation, family law, immigration, estate planning, and more — and communicate what sets your services apart.",
   },
   {
     icon: Users,
     heading: "Reach Every Stage.",
-    body: "Consumers compare multiple lenders before applying. A listing ensures your company is part of that research process from the very first search.",
+    body: "Law firms and clients compare multiple providers before deciding. A listing ensures your services are part of that research process from the very first search.",
   },
 ];
 
@@ -32,13 +32,11 @@ export default function ValueProps() {
         <FadeIn>
           <div className="text-center mb-14">
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-navy mb-4">
-              For Mortgage Companies. Built for Growth.
+              For Paralegal Professionals. Built for Growth.
             </h2>
             <div className="w-12 h-0.5 bg-teal mx-auto mb-5" />
             <p className="text-muted max-w-2xl mx-auto text-lg leading-relaxed">
-              TopMortgageCompanies.com is the new destination for mortgage company
-              recognition and borrower connection. Every company that applies is
-              listed and ready to be found.
+              TopParalegals.com is the new destination for paralegal service recognition and client connection. Every provider that applies is listed and ready to be found.
             </p>
           </div>
         </FadeIn>

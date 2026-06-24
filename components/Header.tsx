@@ -10,7 +10,7 @@ import Button from "./Button";
 const navLinks = [
   { href: "/about", label: "About" },
   { href: "/how-it-works", label: "How It Works" },
-  { href: "/loan-types", label: "Loan Types" },
+  { href: "/services", label: "Our Services" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -23,13 +23,13 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5">
-            <Image src="/money.svg" alt="TopMortgageCompanies.com" width={32} height={32} className="h-8 w-8 object-contain" />
+            <Image src="/scales.svg" alt="TopParalegals.com" width={32} height={32} className="h-8 w-8 object-contain" />
             <span className="flex flex-col items-center">
               <span className="font-display text-lg font-bold text-white leading-none">
-                TopMortgageCompanies<span className="text-teal">.com</span>
+                TopParalegals<span className="text-teal">.com</span>
               </span>
               <span className="text-[9px] text-white/50 tracking-widest uppercase mt-0.5">
-                Visibility &middot; Credibility &middot; Growth
+                Expertise &middot; Precision &middot; Trust
               </span>
             </span>
           </Link>
@@ -50,11 +50,11 @@ export default function Header() {
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
             <a
-              href="tel:+18665206592"
+              href="tel:+18660000000"
               className="inline-flex items-center gap-2 text-sm font-medium text-white/80 hover:text-teal transition-colors"
             >
               <Phone className="h-4 w-4" />
-              (866) 520-6592
+              (866) 000-0000
             </a>
             <Button href="/apply" variant="primary" size="sm">
               Get Listed
@@ -90,11 +90,11 @@ export default function Header() {
               ))}
               <div className="pt-2 flex flex-col gap-3">
                 <a
-                  href="tel:+18665206592"
+                  href="tel:+18660000000"
                   className="inline-flex items-center gap-2 text-base font-medium text-white/80 hover:text-teal transition-colors py-1"
                 >
                   <Phone className="h-5 w-5" />
-                  (866) 520-6592
+                  (866) 000-0000
                 </a>
                 <Button href="/apply" variant="primary" size="md" className="w-full" onClick={() => setMobileOpen(false)}>
                   Get Listed

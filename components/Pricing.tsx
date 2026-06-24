@@ -5,14 +5,15 @@ import FadeIn from "./FadeIn";
 import { PRICING, formatCurrency } from "@/lib/pricing";
 
 const LISTING_FEATURES = [
-  "Full company profile with logo & description",
-  "Listed by city and loan product specialties",
-  "Contact details, NMLS number & website link",
-  "TopMortgageCompanies.com verified badge for your website",
-  "Complimentary custom recognition plaque",
+  "Full professional profile with credentials & description",
+  "Listed by city and legal support specialties",
+  "Contact details, website link & social media",
+  "TopParalegals.com verified badge for your website",
   "Invitation to the Annual Awards & Recognition Event",
   "Pre-launch special: balance of 2026 + all of 2027",
-  "Reach borrowers actively searching in your market",
+  "Reach law firms and clients actively searching in your area",
+  "Showcase practice area support specialties",
+  "Highlight certifications and professional credentials",
 ];
 
 export default function Pricing() {
@@ -50,7 +51,7 @@ export default function Pricing() {
                 {[
                   {
                     label: "Basic listing",
-                    sub: "Per city — includes all loan product specialties",
+                    sub: "Per city — includes all legal support specialties",
                     price: PRICING.basicPerCity,
                     color: "text-navy",
                     prefix: "",
@@ -100,7 +101,7 @@ export default function Pricing() {
               </ul>
 
               <Button href="/apply" variant="secondary" size="md" className="w-full">
-                Submit Your Company Profile
+                Submit Your Professional Profile
               </Button>
             </div>
           </FadeIn>
@@ -112,11 +113,11 @@ export default function Pricing() {
           </p>
           <div className="flex justify-center mt-6">
             <a
-              href="tel:+18665206592"
+              href="tel:+18660000000"
               className="inline-flex items-center gap-2.5 rounded-lg border border-navy/20 bg-sky px-5 py-3 text-sm font-semibold text-navy hover:bg-sky-dark hover:border-teal/50 transition-colors"
             >
               <Phone className="h-4 w-4 text-teal" />
-              Questions? Call&nbsp;<span className="text-teal">(866) 520-6592</span>
+              Questions? Call&nbsp;<span className="text-teal">(866) 000-0000</span>
             </a>
           </div>
         </FadeIn>

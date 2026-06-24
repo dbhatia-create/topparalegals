@@ -12,7 +12,7 @@ export default function PrivacyPage() {
           <p className="text-muted text-sm mb-8">Last updated: June 2026</p>
 
           <h2>1. Information We Collect</h2>
-          <p>We collect information you provide when completing our listing application or contact form, including your name, email address, phone number, company details, NMLS number, and payment card information. We also automatically collect traffic source data via session storage to understand how visitors find us.</p>
+          <p>We collect information you provide when completing our listing application or contact form, including your name, email address, phone number, business details, and payment card information. We also automatically collect traffic source data via session storage to understand how visitors find us.</p>
 
           <h2>2. How We Use Your Information</h2>
           <p>We use the information you provide to process your listing application, manage your account, send listing confirmation and invoice emails, and provide customer support. Payment details are used solely to process your annual listing fee.</p>
@@ -30,7 +30,7 @@ export default function PrivacyPage() {
           <p>We implement reasonable technical and organizational safeguards to protect your information. However, no transmission over the internet is completely secure.</p>
 
           <h2>7. Contact</h2>
-          <p>Questions about this policy? Email us at <a href="mailto:info@topmortgagecompanies.com">info@topmortgagecompanies.com</a>.</p>
+          <p>Questions about this policy? Email us at <a href="mailto:info@topparalegals.com">info@topparalegals.com</a>.</p>
         </div>
       </Container>
     </div>

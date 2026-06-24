@@ -17,7 +17,7 @@ export default function FinalCta() {
               Secure Your City Before Someone Else Does.
             </h2>
             <p className="text-white/70 text-lg leading-relaxed mb-8">
-              Featured Listing is limited to one company per city — first-come, first-served.
+              Featured Listing is limited to one provider per city — first-come, first-served.
               Apply now to lock in your spot at the August 2026 launch and take
               advantage of the pre-launch special covering balance of 2026 plus all of 2027.
             </p>

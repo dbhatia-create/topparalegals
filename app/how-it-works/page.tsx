@@ -8,33 +8,33 @@ import { howItWorksFaqItems } from "@/content/faq";
 
 export const metadata: Metadata = {
   title: "How It Works",
-  description: "Learn how TopMortgageCompanies.com works — apply, get listed, and connect with borrowers in your city.",
+  description: "Learn how TopParalegals.com works — apply, get listed, and connect with law firms and clients in your city.",
 };
 
 const steps = [
   {
     num: "01",
-    title: "Tell Us About Your Company",
+    title: "Tell Us About Your Practice",
     description:
-      "Tell us about your company, your loan officers, and the cities you serve. The profile submission takes about 5 minutes and includes a transparent pricing estimate.",
+      "Tell us about your paralegal services, the specialties you offer, and the cities you serve. The profile submission takes about 5 minutes and includes a transparent pricing estimate.",
   },
   {
     num: "02",
     title: "Get Reviewed",
     description:
-      "Our team verifies your company's standing and credentials. Every qualifying company is accepted. If we need anything to finalize your listing, we'll reach out directly.",
+      "Our team verifies your credentials and confirms your application details. Every qualifying paralegal professional is accepted. If we need anything to finalize your listing, we'll reach out directly.",
   },
   {
     num: "03",
     title: "Go Live",
     description:
-      "Your listing debuts in August 2026 alongside all listed companies — a coordinated national launch with press coverage and borrower awareness campaigns.",
+      "Your listing debuts in August 2026 alongside all listed professionals — a coordinated national launch with attorney and client awareness campaigns.",
   },
   {
     num: "04",
     title: "Be Recognized",
     description:
-      "Receive your custom award plaque, attend the Summer 2027 Awards & Recognition Event, and display the Top Mortgage Companies 2027 badge on your own company website.",
+      "Display the TopParalegals.com 2027 verified badge on your website and receive your invitation to the Annual Awards & Recognition Event in Summer 2027.",
   },
 ];
 
@@ -80,8 +80,8 @@ export default function HowItWorksPage() {
               </Button>
               <span className="text-muted text-sm">
                 Questions? Call{" "}
-                <a href="tel:+18665206592" className="text-teal font-semibold hover:underline">
-                  (866) 520-6592
+                <a href="tel:+18660000000" className="text-teal font-semibold hover:underline">
+                  (866) 000-0000
                 </a>
               </span>
             </div>
@@ -106,12 +106,12 @@ export default function HowItWorksPage() {
                   </div>
                   <ul className="space-y-1.5">
                     {[
-                      "Full company profile with photo & description",
+                      "Full professional profile with photo & description",
                       "Custom recognition plaque",
                       "Invitation to the Awards & Recognition Event",
-                      "Eligibility for the Top Mortgage Companies Recognition Award",
+                      "Eligibility for the TopParalegals.com Recognition Award",
                       "Full listing in every city you serve",
-                      "Expands your reach to all borrowers in your market",
+                      "Expands your reach to all law firms and clients in your market",
                     ].map((f) => (
                       <li key={f} className="flex items-start gap-2 text-sm text-muted">
                         <span className="text-teal font-bold mt-0.5">✓</span>
@@ -156,11 +156,11 @@ export default function HowItWorksPage() {
                   Submit Your Profile
                 </Button>
                 <a
-                  href="tel:+18665206592"
+                  href="tel:+18660000000"
                   className="inline-flex items-center gap-2 text-sm font-semibold text-navy hover:text-teal transition-colors"
                 >
                   <Phone className="h-4 w-4" />
-                  (866) 520-6592
+                  (866) 000-0000
                 </a>
               </div>
             </div>

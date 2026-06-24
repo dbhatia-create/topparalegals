@@ -21,20 +21,20 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "TopMortgageCompanies.com — Get Your Mortgage Company Listed",
-    template: "%s | TopMortgageCompanies.com",
+    default: "TopParalegals.com — Get Your Paralegal Services Listed",
+    template: "%s | TopParalegals.com",
   },
   description:
-    "The premier directory of top-rated mortgage companies nationwide. Get your company listed and reach homebuyers, homeowners, and investors actively searching for financing solutions.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://topmortgagecompanies.com"),
+    "The premier directory of top paralegal services nationwide. Get your services listed and reach law firms, attorneys, businesses, and individuals actively searching for qualified legal support.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://topparalegals.com"),
   icons: {
-    icon: "/money.svg",
-    shortcut: "/money.svg",
-    apple: "/money.svg",
+    icon: "/scales.svg",
+    shortcut: "/scales.svg",
+    apple: "/scales.svg",
   },
   openGraph: {
     type: "website",
-    siteName: "TopMortgageCompanies.com",
+    siteName: "TopParalegals.com",
   },
 };
 

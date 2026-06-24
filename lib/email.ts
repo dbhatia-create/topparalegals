@@ -2,17 +2,12 @@ import sgMail from "@sendgrid/mail";
 import type { ApplyFormData, ContactFormData } from "./schema";
 import { calculateQuote, formatCurrency } from "./pricing";
 
-const FROM_EMAIL = "info@topmortgagecompanies.com";
-const FROM_NAME = "TopMortgageCompanies.com";
-const REPLY_TO = "sjain@brianmarketinggroup.com";
-const TEST_EMAIL = "sjain@brianmarketinggroup.com";
+const FROM_EMAIL = "info@topparalegals.com";
+const FROM_NAME = "TopParalegals.com";
+const REPLY_TO = "abansal@brianmarketinggroup.com";
+const TEST_EMAIL = "abansal@brianmarketinggroup.com";
 const NOTIFICATION_EMAILS = [
-  "sjain@brianmarketinggroup.com",
-  "twondra@brianmarketinggroup.com",
-  "jbrian@brianmarketinggroup.com",
-  "tdavis@brianmarketinggroup.com",
-  "nhamilton@brianmarketinggroup.com",
-  "skeppy@brianmarketinggroup.com",
+  "abansal@brianmarketinggroup.com",
 ];
 
 function recipients(submitterEmail: string): string[] {
@@ -34,7 +29,7 @@ export async function sendLeadEmail(
   meta: { referer: string; landingPage: string },
 ): Promise<void> {
   if (!isConfigured()) {
-    console.log("[email] Skipping — SendGrid not configured.", { companyName: data.companyName });
+    console.log("[email] Skipping — SendGrid not configured.", { businessName: data.businessName });
     return;
   }
   init();
@@ -75,28 +70,22 @@ export async function sendLeadEmail(
   const divider = "─".repeat(52);
 
   const text = `
-New listing application received on TopMortgageCompanies.com
+New listing application received on TopParalegals.com
 
 SOURCE
 Traffic Source:  ${meta.referer || "direct"}
 Landing Page:    ${meta.landingPage || "/apply"}
 Submitted:       ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })} ET
 
-COMPANY DETAILS
-Company Name:  ${data.companyName}
+BUSINESS DETAILS
+Business Name: ${data.businessName}
 Website:       ${data.website || "—"}
-Phone:         ${data.companyPhone}
-NMLS Number:   ${data.nmlsNumber || "—"}
+Phone:         ${data.businessPhone}
 Cities:        ${data.locations.map((l) => `${l.city}, ${l.state}`).join(" | ")}
-Loan Officers: ${
-    data.loanOfficers && data.loanOfficers.length > 0
-      ? data.loanOfficers.map((o) => `\n    • ${o.name ?? ""}${o.nmls ? ` (NMLS: ${o.nmls})` : ""}${o.description ? ` - ${o.description}` : ""}`).join("")
-      : "—"
-  }
 Assets:        ${data.assetPermission === "grant" ? "Permission granted to use website assets" : "Support team to contact for assets"}
 
-LOAN PRODUCTS
-${data.loanProducts.map((p) => `  • ${p}`).join("\n")}
+LEGAL SUPPORT SPECIALTIES
+${data.services.map((p) => `  • ${p}`).join("\n")}
 Featured Placement: ${data.featuredPlacement ? "Yes" : "No"}
 
 CONTACT
@@ -138,7 +127,7 @@ ${data.plaqueShippingCity}, ${data.plaqueShippingState} ${data.plaqueShippingZip
     to: recipients(data.email),
     from: { email: FROM_EMAIL, name: FROM_NAME },
     replyTo: { email: REPLY_TO, name: FROM_NAME },
-    subject: `New Application: ${data.companyName} — ${data.locations.map((l) => `${l.city}, ${l.state}`).join(" | ")}`,
+    subject: `New Application: ${data.businessName} — ${data.locations.map((l) => `${l.city}, ${l.state}`).join(" | ")}`,
     text,
   });
 }
@@ -154,7 +143,7 @@ export async function sendContactEmail(
   init();
 
   const text = `
-New contact inquiry from TopMortgageCompanies.com
+New contact inquiry from TopParalegals.com
 
 SOURCE
 Traffic Source:  ${meta.referer || "direct"}

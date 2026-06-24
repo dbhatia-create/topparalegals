@@ -3,7 +3,7 @@ import { IMAGES } from "./images";
 export interface PreviewCompany {
   id: number;
   name: string;
-  loanProducts: string[];
+  services: string[];
   rating: number;
   reviewCount: number;
   phone: string;
@@ -12,60 +12,55 @@ export interface PreviewCompany {
   imageUrl: string;
   featured?: boolean;
   rank?: number;
-  nmls?: string;
 }
 
 export const previewCompanies: PreviewCompany[] = [
   {
     id: 1,
-    name: "Summit Home Lending",
-    loanProducts: ["Conventional Loans", "Jumbo Loans", "Refinancing"],
+    name: "Meridian Legal Support",
+    services: ["Litigation Support", "Document Preparation", "Case Management"],
     rating: 5.0,
     reviewCount: 218,
-    phone: "(303) 555-1200",
-    location: "Denver, CO",
-    servingArea: "Metro Denver & Front Range",
+    phone: "(214) 555-1200",
+    location: "Dallas, TX",
+    servingArea: "Metro Dallas & Surrounding Areas",
     imageUrl: IMAGES.companyFeatured,
     featured: true,
-    nmls: "NMLS #1234567",
   },
   {
     id: 2,
-    name: "Patriot Mortgage Group",
-    loanProducts: ["VA Loans", "FHA Loans", "Conventional Loans"],
+    name: "Clearwater Paralegal Group",
+    services: ["Family Law Support", "Estate Planning Support", "Immigration Support"],
     rating: 4.9,
     reviewCount: 312,
-    phone: "(303) 444-8800",
-    location: "Denver, CO",
-    servingArea: "Serving Metro Denver",
+    phone: "(214) 444-8800",
+    location: "Dallas, TX",
+    servingArea: "Serving Metro Dallas",
     imageUrl: IMAGES.companyOne,
     rank: 1,
-    nmls: "NMLS #2345678",
   },
   {
     id: 3,
-    name: "Greenfield Mortgage Solutions",
-    loanProducts: ["FHA Loans", "USDA Loans", "Conventional Loans"],
+    name: "Sterling Document Services",
+    services: ["Real Estate Law Support", "Corporate Law Support", "Document Preparation"],
     rating: 4.8,
     reviewCount: 187,
-    phone: "(303) 310-5500",
-    location: "Denver, CO",
-    servingArea: "Serving Metro Denver",
+    phone: "(214) 310-5500",
+    location: "Dallas, TX",
+    servingArea: "Serving Metro Dallas",
     imageUrl: IMAGES.companyTwo,
     rank: 2,
-    nmls: "NMLS #3456789",
   },
   {
     id: 4,
-    name: "Apex Capital Lending",
-    loanProducts: ["Investment Property Loans", "Commercial Mortgages", "Jumbo Loans"],
+    name: "Nexus Paralegal Solutions",
+    services: ["Personal Injury Support", "Bankruptcy Support", "Litigation Support"],
     rating: 4.7,
     reviewCount: 143,
-    phone: "(303) 555-9900",
-    location: "Denver, CO",
-    servingArea: "Serving Metro Denver",
+    phone: "(214) 555-9900",
+    location: "Dallas, TX",
+    servingArea: "Serving Metro Dallas",
     imageUrl: IMAGES.companyThree,
     rank: 3,
-    nmls: "NMLS #4567890",
   },
 ];

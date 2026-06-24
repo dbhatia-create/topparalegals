@@ -24,18 +24,18 @@ export default function Footer() {
           <div className="sm:col-span-2 lg:col-span-1 flex flex-col items-center">
             <Link href="/" className="inline-flex flex-col items-center mb-5">
               <span className="font-display text-2xl font-bold text-white leading-none tracking-tight text-center">
-                TopMortgageCompanies<span className="text-teal">.com</span>
+                TopParalegals<span className="text-teal">.com</span>
               </span>
               <span className="text-xs text-white/50 mt-1 tracking-widest uppercase text-center">
-                Visibility &middot; Credibility &middot; Growth
+                Expertise &middot; Precision &middot; Trust
               </span>
             </Link>
             <a
-              href="tel:+18665206592"
+              href="tel:+18660000000"
               className="inline-flex items-center gap-2.5 rounded-lg border border-teal/40 bg-teal/10 px-4 py-2.5 text-sm font-semibold text-teal hover:bg-teal/20 hover:border-teal/60 transition-colors"
             >
               <Phone className="h-4 w-4" />
-              (866) 520-6592
+              (866) 000-0000
             </a>
           </div>
 
@@ -55,10 +55,10 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* For Lenders */}
+          {/* For Paralegals */}
           <div>
             <h3 className="text-xs font-semibold text-white uppercase tracking-widest mb-4">
-              For Mortgage Companies
+              For Paralegals
             </h3>
             <ul className="space-y-2">
               {forLendersLinks.map((link) => (
@@ -73,7 +73,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-white/10 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
-          <p>&copy; {new Date().getFullYear()} TopMortgageCompanies.com. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} TopParalegals.com. All rights reserved.</p>
           <div className="flex gap-4">
             <Link href="/privacy" className="hover:text-teal transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-teal transition-colors">Terms of Service</Link>

@@ -1,26 +1,16 @@
 import { z } from "zod";
-import { allLoanProductLabels } from "@/content/loanProducts";
+import { allServiceLabels } from "@/content/services";
 
 export const applySchema = z.object({
   type: z.literal("apply").default("apply"),
 
-  // Step 1: Company Details
-  companyName: z.string().min(2, "Company name is required"),
+  // Step 1: Business Details
+  businessName: z.string().min(2, "Business name is required"),
   website: z.string().optional(),
-  companyPhone: z
+  businessPhone: z
     .string()
     .min(10, "Enter a valid phone number")
     .regex(/^[\d\s\(\)\-\+\.]+$/, "Enter a valid phone number"),
-  nmlsNumber: z.string().optional(),
-  loanOfficers: z
-    .array(
-      z.object({
-        name: z.string().optional(),
-        nmls: z.string().optional(),
-        description: z.string().max(500, "Description too long").optional(),
-      })
-    )
-    .optional(),
   assetPermission: z.enum(["grant", "support"], {
     errorMap: () => ({ message: "Please select an option" }),
   }),
@@ -34,12 +24,12 @@ export const applySchema = z.object({
       })
     )
     .min(1, "Add at least one city"),
-  loanProducts: z
+  services: z
     .array(z.string())
-    .min(1, "Select at least one loan product")
+    .min(1, "Select at least one specialty")
     .refine(
-      (products) => products.every((p) => allLoanProductLabels.includes(p)),
-      "Invalid loan product"
+      (items) => items.every((p) => allServiceLabels.includes(p)),
+      "Invalid specialty"
     ),
   featuredPlacement: z.boolean().default(true),
   // "city|state" keys the user has opted out of featured placement

@@ -3,11 +3,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Plus, Trash2, Home, ChevronRight, ChevronLeft } from "lucide-react";
+import { Plus, Trash2, Scale, ChevronRight, ChevronLeft } from "lucide-react";
 import { applySchema, type ApplyFormData } from "@/lib/schema";
 import { FormField, Input, Textarea, Select } from "./FormField";
 import CityCombobox from "./CityCombobox";
-import LoanProductSelect from "./LoanProductSelect";
+import ServicesSelect from "./ServicesSelect";
 import PricingEstimate from "./PricingEstimate";
 import Button from "./Button";
 import { getTrafficSource } from "./TrafficSourceTracker";
@@ -26,7 +26,7 @@ const US_STATES = [
   ["DC","District of Columbia"],
 ] as const;
 
-const STEP_TITLES = ["Company Details", "Contact Info", "Cities & Listing", "Billing"];
+const STEP_TITLES = ["Business Details", "Contact Info", "Legal Specialties & Cities", "Billing"];
 
 const formatPhone = (val: string) => {
   const d = val.replace(/\D/g, "");
@@ -63,9 +63,8 @@ export default function ApplyForm() {
     resolver: zodResolver(applySchema),
     defaultValues: {
       type: "apply",
-      loanOfficers: [],
       locations: [{ city: "", state: "" }],
-      loanProducts: [],
+      services: [],
       featuredPlacement: true,
       excludedFeatured: [],
       assetPermission: undefined,
@@ -73,10 +72,9 @@ export default function ApplyForm() {
     mode: "onTouched",
   });
 
-  const { fields: officerFields, append: addOfficer, remove: removeOfficer } = useFieldArray({ control, name: "loanOfficers" });
   const { fields: locFields, append: addLocation, remove: removeLocation } = useFieldArray({ control, name: "locations" });
 
-  const watchedLoanProducts = watch("loanProducts");
+  const watchedServices = watch("services");
   const watchedLocations = watch("locations");
   const watchedFeatured = watch("featuredPlacement");
   const watchedExcluded = watch("excludedFeatured");
@@ -110,9 +108,9 @@ export default function ApplyForm() {
 
   async function goNext() {
     const stepFields: (keyof ApplyFormData)[][] = [
-      ["companyName", "companyPhone", "assetPermission"],
+      ["businessName", "businessPhone", "assetPermission"],
       ["contactFirstName", "contactLastName", "email", "contactPhone", "plaqueShippingAddress", "plaqueShippingCity", "plaqueShippingState", "plaqueShippingZip"],
-      ["locations", "loanProducts"],
+      ["locations", "services"],
       ["cardNumber", "cardExpiry", "cardCvc", "cardName", "billingAddress", "billingCity", "billingState", "billingZip", "consentToTerms"],
     ];
     const valid = await trigger(stepFields[step - 1]);
@@ -155,12 +153,12 @@ export default function ApplyForm() {
     return (
       <div className="rounded-2xl border border-teal/30 bg-teal/5 p-10 text-center space-y-4">
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-teal/20">
-          <Home className="h-8 w-8 text-teal" />
+          <Scale className="h-8 w-8 text-teal" />
         </div>
         <h2 className="font-display text-2xl font-bold text-navy">Application Received!</h2>
         <p className="text-muted text-sm max-w-md mx-auto leading-relaxed">
           We&apos;ll reach out if we need anything to finalize your listing. Questions? Call us at:{" "}
-          <a href="tel:+18665206592" className="text-teal font-semibold hover:text-teal-dark">(866) 520-6592</a>
+          <a href="tel:+18660000000" className="text-teal font-semibold hover:text-teal-dark">(866) 000-0000</a>
         </p>
       </div>
     );
@@ -199,63 +197,25 @@ export default function ApplyForm() {
           {step === 1 && (
             <div className="space-y-6">
               <div>
-                <h2 className="font-display text-xl font-bold text-navy mb-1">Company Details</h2>
-                <p className="text-sm text-muted">Tell us about your mortgage company.</p>
+                <h2 className="font-display text-xl font-bold text-navy mb-1">Business Details</h2>
+                <p className="text-sm text-muted">Tell us about your paralegal services.</p>
               </div>
 
-              <FormField label="Company Name" required error={errors.companyName?.message}>
-                <Input {...register("companyName")} error={errors.companyName?.message} placeholder="Summit Home Lending" />
+              <FormField label="Business Name" required error={errors.businessName?.message}>
+                <Input {...register("businessName")} error={errors.businessName?.message} placeholder="Meridian Legal Support" />
               </FormField>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <FormField label="Company Phone" required error={errors.companyPhone?.message}>
+                <FormField label="Business Phone" required error={errors.businessPhone?.message}>
                   <Input
-                    {...register("companyPhone")}
-                    onChange={(e) => { e.target.value = formatPhone(e.target.value); register("companyPhone").onChange(e); }}
-                    type="tel" error={errors.companyPhone?.message} placeholder="(555) 000-0000"
+                    {...register("businessPhone")}
+                    onChange={(e) => { e.target.value = formatPhone(e.target.value); register("businessPhone").onChange(e); }}
+                    type="tel" error={errors.businessPhone?.message} placeholder="(555) 000-0000"
                   />
                 </FormField>
-                <FormField label="Company Website" error={errors.website?.message}>
-                  <Input {...register("website")} error={errors.website?.message} placeholder="https://yourcompany.com" type="url" />
+                <FormField label="Business Website" error={errors.website?.message}>
+                  <Input {...register("website")} error={errors.website?.message} placeholder="https://yourfirm.com" type="url" />
                 </FormField>
-              </div>
-
-              <FormField label="Company NMLS Number" hint="optional" error={errors.nmlsNumber?.message}>
-                <Input {...register("nmlsNumber")} error={errors.nmlsNumber?.message} placeholder="e.g. 1234567" />
-              </FormField>
-
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <div>
-                    <p className="text-sm font-semibold text-navy">Loan Officers to List <span className="text-xs font-normal text-muted">(optional)</span></p>
-                    {officerFields.length === 0 && <p className="text-xs text-muted mt-0.5">Add individual loan officers you&apos;d like featured on your listing.</p>}
-                  </div>
-                  <button type="button" onClick={() => addOfficer({ name: "", nmls: "", description: "" })}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-teal hover:text-teal-dark border border-teal/30 hover:border-teal/60 bg-teal/5 hover:bg-teal/10 rounded-lg px-3 py-1.5 transition-all">
-                    <Plus className="h-3 w-3" /> Add Officer
-                  </button>
-                </div>
-                {officerFields.length > 0 && (
-                  <div className="space-y-4">
-                    {officerFields.map((field, i) => (
-                      <div key={field.id} className="rounded-xl border border-sky-dark bg-sky p-4 space-y-3 relative">
-                        <button type="button" onClick={() => removeOfficer(i)} className="absolute top-3 right-3 text-muted hover:text-red-500 transition-colors" aria-label="Remove officer">
-                          <Trash2 className="h-3.5 w-3.5" />
-                        </button>
-                        <p className="text-xs font-semibold text-muted uppercase tracking-wider">Loan Officer {i + 1}</p>
-                        <FormField label="Name" error={errors.loanOfficers?.[i]?.name?.message}>
-                          <Input {...register(`loanOfficers.${i}.name`)} error={errors.loanOfficers?.[i]?.name?.message} placeholder="Jane Smith" />
-                        </FormField>
-                        <FormField label="NMLS Number" hint="optional" error={errors.loanOfficers?.[i]?.nmls?.message}>
-                          <Input {...register(`loanOfficers.${i}.nmls`)} error={errors.loanOfficers?.[i]?.nmls?.message} placeholder="e.g. 9876543" />
-                        </FormField>
-                        <FormField label="Short Bio" hint="up to 500 characters, optional" error={errors.loanOfficers?.[i]?.description?.message}>
-                          <Textarea {...register(`loanOfficers.${i}.description`)} error={errors.loanOfficers?.[i]?.description?.message} rows={2} placeholder="15 years experience specializing in VA and FHA loans…" />
-                        </FormField>
-                      </div>
-                    ))}
-                  </div>
-                )}
               </div>
 
               <div>
@@ -267,7 +227,7 @@ export default function ApplyForm() {
                       <div>
                         {val === "grant" ? (
                           <>
-                            <p className="font-semibold text-sm text-navy">I grant TopMortgageCompanies.com permission</p>
+                            <p className="font-semibold text-sm text-navy">I grant TopParalegals.com permission</p>
                             <p className="text-xs text-muted mt-0.5">to use photos, logos, and content from my website for my directory listing.</p>
                           </>
                         ) : (
@@ -301,11 +261,11 @@ export default function ApplyForm() {
                 </FormField>
               </div>
               <FormField label="Title / Role" hint="optional" error={errors.contactTitle?.message}>
-                <Input {...register("contactTitle")} error={errors.contactTitle?.message} placeholder="Owner, Branch Manager, Loan Officer…" />
+                <Input {...register("contactTitle")} error={errors.contactTitle?.message} placeholder="Owner, Senior Paralegal, Legal Support Specialist…" />
               </FormField>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <FormField label="Email Address" required error={errors.email?.message}>
-                  <Input {...register("email")} type="email" error={errors.email?.message} placeholder="jane@yourcompany.com" />
+                  <Input {...register("email")} type="email" error={errors.email?.message} placeholder="jane@yourfirm.com" />
                 </FormField>
                 <FormField label="Phone" required error={errors.contactPhone?.message}>
                   <Input {...register("contactPhone")} onChange={(e) => { e.target.value = formatPhone(e.target.value); register("contactPhone").onChange(e); }} type="tel" error={errors.contactPhone?.message} placeholder="(555) 000-0000" />
@@ -323,7 +283,7 @@ export default function ApplyForm() {
                   </FormField>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                     <FormField label="City" required error={errors.plaqueShippingCity?.message} className="sm:col-span-1">
-                      <Input {...register("plaqueShippingCity")} error={errors.plaqueShippingCity?.message} placeholder="Denver" autoComplete="address-level2" />
+                      <Input {...register("plaqueShippingCity")} error={errors.plaqueShippingCity?.message} placeholder="Dallas" autoComplete="address-level2" />
                     </FormField>
                     <FormField label="State" required error={errors.plaqueShippingState?.message}>
                       <Select {...register("plaqueShippingState")} error={errors.plaqueShippingState?.message} autoComplete="address-level1">
@@ -332,7 +292,7 @@ export default function ApplyForm() {
                       </Select>
                     </FormField>
                     <FormField label="ZIP Code" required error={errors.plaqueShippingZip?.message}>
-                      <Input {...register("plaqueShippingZip")} error={errors.plaqueShippingZip?.message} placeholder="80202" maxLength={10} inputMode="numeric" autoComplete="postal-code" />
+                      <Input {...register("plaqueShippingZip")} error={errors.plaqueShippingZip?.message} placeholder="75201" maxLength={10} inputMode="numeric" autoComplete="postal-code" />
                     </FormField>
                   </div>
                 </div>
@@ -340,12 +300,12 @@ export default function ApplyForm() {
             </div>
           )}
 
-          {/* Step 3 — Cities & Listing */}
+          {/* Step 3 — Legal Specialties & Cities */}
           {step === 3 && (
             <div className="space-y-8">
               <div>
-                <h2 className="font-display text-xl font-bold text-navy mb-1">Cities & Listing Type</h2>
-                <p className="text-sm text-muted">Select your cities, loan product specialties, and listing type.</p>
+                <h2 className="font-display text-xl font-bold text-navy mb-1">Specialties & Cities</h2>
+                <p className="text-sm text-muted">Select your service cities, legal support specialties, and listing type.</p>
               </div>
 
               <div>
@@ -393,12 +353,12 @@ export default function ApplyForm() {
               </div>
 
               <div>
-                <p className="text-sm font-semibold text-navy mb-1">Loan Product Specialties <span className="text-red-500">*</span></p>
-                <p className="text-xs text-muted mb-3">Select all loan types your company offers. These appear on your listing and do not affect pricing.</p>
-                <LoanProductSelect
-                  value={watchedLoanProducts}
-                  onChange={(products) => setValue("loanProducts", products, { shouldValidate: true })}
-                  error={errors.loanProducts?.message as string}
+                <p className="text-sm font-semibold text-navy mb-1">Legal Support Specialties <span className="text-red-500">*</span></p>
+                <p className="text-xs text-muted mb-3">Select all specialties your practice supports. These appear on your listing and do not affect pricing.</p>
+                <ServicesSelect
+                  value={watchedServices}
+                  onChange={(selected) => setValue("services", selected, { shouldValidate: true })}
+                  error={errors.services?.message as string}
                 />
               </div>
 
@@ -416,7 +376,7 @@ export default function ApplyForm() {
                   />
                   <div>
                     <p className="font-semibold text-sm text-navy">Include Featured Listing</p>
-                    <p className="text-xs text-muted mt-0.5">Pins your company at the top of each city page. $689 first city, $345 each additional. Only 1 per city.</p>
+                    <p className="text-xs text-muted mt-0.5">Pins your services at the top of each city page. $689 first city, $345 each additional. Only 1 per city.</p>
                   </div>
                 </label>
               </div>
@@ -455,7 +415,7 @@ export default function ApplyForm() {
                 </FormField>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                   <FormField label="City" required error={errors.billingCity?.message} className="col-span-2 sm:col-span-1">
-                    <Input {...register("billingCity")} error={errors.billingCity?.message} placeholder="Denver" />
+                    <Input {...register("billingCity")} error={errors.billingCity?.message} placeholder="Dallas" />
                   </FormField>
                   <FormField label="State" required error={errors.billingState?.message}>
                     <Select {...register("billingState")} error={errors.billingState?.message}>
@@ -464,7 +424,7 @@ export default function ApplyForm() {
                     </Select>
                   </FormField>
                   <FormField label="ZIP Code" required error={errors.billingZip?.message}>
-                    <Input {...register("billingZip")} error={errors.billingZip?.message} placeholder="80202" />
+                    <Input {...register("billingZip")} error={errors.billingZip?.message} placeholder="75201" />
                   </FormField>
                 </div>
               </div>

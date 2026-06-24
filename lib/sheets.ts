@@ -3,17 +3,16 @@ import type { ApplyFormData, ContactFormData } from "./schema";
 import { calculateQuote, formatCurrency } from "./pricing";
 
 /*
- * Applications tab columns (A–AB):
+ * Applications tab columns (A–Z):
  * A  Timestamp          B  Traffic Source     C  Landing Page
- * D  Company Name       E  Website            F  Company Phone
- * G  NMLS Number        H  Loan Officers      I  Asset Permission
- * J  Cities             K  Loan Products      L  Featured Placement
- * M  First Name         N  Last Name          O  Email
- * P  Contact Phone      Q  Title / Role       R  Notes
- * S  Card Number        T  Card Expiry        U  CVV
- * V  Name on Card       W  Billing Address    X  Billing City
- * Y  Billing State      Z  Billing ZIP        AA Estimated Total
- * AB Pricing Breakdown
+ * D  Business Name      E  Website            F  Business Phone
+ * G  Asset Permission   H  Cities             I  Legal Specialties
+ * J  Featured Placement K  First Name         L  Last Name
+ * M  Email              N  Contact Phone      O  Title / Role
+ * P  Notes              Q  Card Number        R  Card Expiry
+ * S  CVV                T  Name on Card       U  Billing Address
+ * V  Billing City       W  Billing State      X  Billing ZIP
+ * Y  Estimated Total    Z  Pricing Breakdown
  *
  * Contact tab columns (A–H):
  * A  Timestamp  B  Traffic Source  C  Landing Page
@@ -74,7 +73,7 @@ export async function appendLead(
 ): Promise<void> {
   const conn = await getSheets();
   if (!conn) {
-    console.log("[sheets] Skipping — credentials not configured.", { companyName: data.companyName });
+    console.log("[sheets] Skipping — credentials not configured.", { businessName: data.businessName });
     return;
   }
   const { sheets, sheetId } = conn;
@@ -102,19 +101,12 @@ export async function appendLead(
     new Date().toISOString(),
     meta.referer || "direct",
     meta.landingPage || "/apply",
-    data.companyName,
+    data.businessName,
     data.website ?? "",
-    data.companyPhone,
-    data.nmlsNumber ?? "",
-    (() => {
-      if (!data.loanOfficers || data.loanOfficers.length === 0) return "—";
-      return data.loanOfficers
-        .map((o) => `${o.name ?? ""}${o.nmls ? ` (NMLS: ${o.nmls})` : ""}${o.description ? ` - ${o.description}` : ""}`)
-        .join("\n");
-    })(),
+    data.businessPhone,
     data.assetPermission === "grant" ? "Permission granted" : "Support team to contact",
     data.locations.map((l) => `${l.city}, ${l.state}`).join("; "),
-    data.loanProducts.join(", "),
+    data.services.join(", "),
     data.featuredPlacement ? "Yes" : "No",
     data.contactFirstName,
     data.contactLastName,
@@ -143,7 +135,7 @@ export async function appendLead(
     for (const loc of data.locations) {
       const key = `${loc.city}|${loc.state}`;
       if (!excluded.includes(key)) {
-        inventoryRows.push([loc.state, loc.city, "active", data.companyName, new Date().toISOString()]);
+        inventoryRows.push([loc.state, loc.city, "active", data.businessName, new Date().toISOString()]);
       }
     }
     if (inventoryRows.length > 0) {
