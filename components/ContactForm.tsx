@@ -98,7 +98,7 @@ export default function ContactForm() {
         <label className="flex items-start gap-3 cursor-pointer">
           <input type="checkbox" {...register("consentToContact")} className="mt-0.5 h-4 w-4 rounded accent-teal flex-shrink-0" />
           <span className="text-sm text-muted leading-snug">
-            I consent to being contacted by the TopMortgageCompanies.com team by email and phone regarding my inquiry.
+            I consent to being contacted by the TopParalegals.com team by email and phone regarding my inquiry.
           </span>
         </label>
         {errors.consentToContact && (
